@@ -1,0 +1,34 @@
+
+
+item_controller
+
+@blueprint.route('/')
+def main():
+    return render_template('index.html')
+
+@blueprint.route('/add_item', methods=['POST'])
+def addItem():
+    if request.method == 'POST':
+        sku = request.form['sku']
+        name = request.form['name']
+        description = request.form['description']
+        price = request.form['price']
+        quantity = request.form['quantity']
+        exp_date = request.form['exp_date']
+
+        cursor = mysql.connection.cursor()
+        cursor.execute('INSERT INTO grocery_batch VALUES (%s, %s, %s, %s, %s, %s)', 
+                       (sku, name, description, price, quantity, exp_date))
+        mysql.connection.commit()
+
+        print(sku, name, description, price, quantity, exp_date)
+        return 'recibido'
+
+
+@blueprint.route('/get_item', methods=['GET'])
+def getItems():
+    return 'All items'
+
+ @abc.abstractclassmethod
+    def get(self, reference) -> item_model.Item:
+        raise NotImplementedError
