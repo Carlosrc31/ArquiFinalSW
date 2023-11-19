@@ -9,17 +9,27 @@ Final project Software Architecture and Design
 
 ## Pasos para ejecutar
 
-Developing an virtual environment with Flask Python
+Developing a virtual environment with Flask Python
+
 Creating a virtual environment
-	python -m venv virtual_env
+
+ 	python -m venv virtual_env
+
 Activating the virtual environment, it's needed everytime we're going to use the app
-	.\virtual_env\Scripts\activate
+
+ 	.\virtual_env\Scripts\activate
+
 Installing flask using pip
-	pip install flask
+
+ 	pip install flask
+
 Command to install all the libraries needed
-	pip install -r requirements.txt
+
+ 	pip install -r requirements.txt
+
 Into the right carpet, to up the server
-	py app.py
+
+ 	py app.py
 
 ## Prácticas SOLID seguidas
 
