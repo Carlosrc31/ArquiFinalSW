@@ -4,8 +4,6 @@ from model import item_model
 
 class ItemRepo(ItemAbstract):
     
-    #def __init__(self):
-    #    self.cursor = mysql.connection.cursor()
     
     def add(self, item: item_model.Item):
         from app import mysql
@@ -15,4 +13,29 @@ class ItemRepo(ItemAbstract):
         mysql.connection.commit()
         return True
     
+
+    def get_all(self):
+        from app import mysql
+        items = []
+
+        cursor = mysql.connection.cursor()
+        cursor.execute('SELECT * FROM grocery_batch')
+        items = cursor.fetchall()
+        mysql.connection.commit()
+
+        return items
     
+
+    def delete(self, item_id):
+        from app import mysql
+        try:
+            cursor = mysql.connection.cursor()
+            cursor.execute('DELETE FROM grocery_batch WHERE G_SKU = %s', (item_id,))
+            mysql.connection.commit()
+
+            return True
+        except Exception as e:
+            print(f"Error al intentar eliminar el elemento: {e}")
+            return False
+        finally:
+            cursor.close()

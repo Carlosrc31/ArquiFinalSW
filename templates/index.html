@@ -1,11 +1,150 @@
-<form action="/add_item" method="POST">
-    <input type="text" name="sku" placeholder="SKU">
-    <input type="text" name="name" placeholder="Item Name">
-    <input type="text" name="description" placeholder="Description">
-    <input type="number" step="any" name="price" placeholder="Price">
-    <input type="number" name="quantity" placeholder="Quantity">
-    <input type="date" name="exp_date" placeholder="Exp_date">
-    <button type="submit">
-        Save
-    </button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supermarket Items</title>
+
+    <!-- Estilos CSS para el tema de supermercado -->
+    <style>
+
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            
+            background-color: black;
+            background-image: url(alimentos3.jpg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            overflow: hidden; 
+            margin: 0; 
+            padding: 0; 
+        }
+
+        h1 {
+            color: rgb(255, 255, 0);
+        }
+
+        main {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            padding: 20px;
+            box-sizing: border-box;
+            margin-top: 4cm;
+        }
+form {
+            flex: 0 0 48%; /* Ajusta según tus necesidades */
+            max-width: 400px;
+            margin: 10px 0 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form input, form button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        form button {
+            background-color: #e85110;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+        }
+
+        #tableContainer {
+            flex: 1 100%;
+            max-width: 800px;
+            margin: 20px 0;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+ table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #e85110;
+            color: #fff;
+        }
+
+        button {
+            background-color: #e85110;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+  <!-- Incluir jQuery (asegúrate de tener conexión a Internet para cargarlo desde CDN) -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+    <main>
+        <div>
+            <h1>Add Item</h1>
+            <form action="/add_item" method="POST">
+                <input type="text" name="sku" placeholder="SKU">
+                <input type="text" name="name" placeholder="Item Name">
+                <input type="text" name="description" placeholder="Description">
+                <input type="number" step="any" name="price" placeholder="Price">
+                <input type="number" name="quantity" placeholder="Quantity">
+                <input type="date" name="exp_date" placeholder="Exp_date">
+                <button type="submit">Save</button>
+            </form>
+        </div>
+
+        <div>
+            <h1>Show Items</h1>
+            <form action="/get_item" method="GET">
+                <button type="submit">Show Items</button>
+            </form>
+           
+        </div>
+
+        <div>
+            <h1>Currency Convertion</h1>
+            <form action="/converter" method="GET">
+                <button type="submit">Currency Convertion</button>
+            </form>
+           
+        </div>
+
+        <div>
+            <h1>Delete Item</h1>
+            <form action="/delete_item" method="POST">
+                <input type="hidden" name="_method" value="DELETE">
+                <label for="item_id">Item ID:</label>
+                <input type="text" id="item_id" name="item_id" placeholder="Enter Item ID">
+                <button type="submit">Delete Item</button>
+            </form>
+        </div>
+    </main>
+
+</body>
+</html>

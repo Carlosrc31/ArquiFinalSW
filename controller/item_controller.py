@@ -54,28 +54,55 @@ def addItem():
         return 'No se insertó'
        
 
+
+@blueprint.route('/get_item', methods=['GET'])
+def getItem():
+
+    if request.method == 'GET':
+        # Lógica para manejar la solicitud GET y obtener datos de la base de datos
+        items = itemRepo.get_all()  
+
+        return jsonify(items)
+
+
+@blueprint.route('/delete_item', methods=['POST'])
+def deleteItem():
+
+    if request.method == 'POST':
+        sku = request.form['item_id']
+
+    try:
+        # Lógica para eliminar el elemento con el ID proporcionado
+        success = itemRepo.delete(sku)
+        if success:
+            return 'Elemento eliminado correctamente'
+        else:
+            return 'No se pudo eliminar el elemento', 500  # Puedes ajustar el código de estado según tu lógica
+
+    except Exception as e:
+        return f'Error al intentar eliminar el elemento: {e}', 500
+    
+    
 @blueprint.route('/converter', methods=['GET', 'POST'])
-def currency_converter(sku):
-    #converter_api = 'http://api.exchangeratesapi.io/v1/latest?access_key=7b52c31d973e54a40972abb73d1e168a'
-    #data = requests.get(converter_api).json()
+def currency_converter():
+    converter_api = 'http://api.exchangeratesapi.io/v1/latest?access_key=7b52c31d973e54a40972abb73d1e168a'
+    data = requests.get(converter_api).json()
     
     #return shows convertion from EUR to MXN, receive the sku, query a select with the sku and return the data
     
     #Using facade pattern
-    #mxn, usd, jpy = facade.Facade().operations(data)
+    mxn, usd, jpy = facade.Facade().operations(data)
     # here convertion = get[currency] * mxn o usd o jpy
-    #send convertion to the html view. 
-    #Puede reutilizar el get hacer la conversión con cada dato y luego enviarlo a vista que usa el get (select)
 
+    arrayItems = itemRepo.get_all()
+    
+    
+    list_new = list()
+    for item in arrayItems:
+        convertion = item[3] * usd
+        list_new.append({"SKU": item[0], "Name": item[1] , "Description": item[2], "Price": convertion, "Currency" : usd, "Quantity": item[4]})
+        
 
-    #return str(mxn_rate["rates"]["MXN"]) #Convertir string
-
-    return 'API'
-
-
-
-@blueprint.route('/get_item', methods=['GET'])
-def getItems():
-    return 'All items'
+    return jsonify(list_new)
 
 

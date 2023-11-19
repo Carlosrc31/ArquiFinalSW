@@ -32,3 +32,18 @@ def getItems():
  @abc.abstractclassmethod
     def get(self, reference) -> item_model.Item:
         raise NotImplementedError
+
+
+
+
+delete
+ try:
+        # Lógica para eliminar el elemento con el ID proporcionado
+        success = itemRepo.delete(item_id)
+        if success:
+            return 'Elemento eliminado correctamente'
+        else:
+            return 'No se pudo eliminar el elemento', 500  # Puedes ajustar el código de estado según tu lógica
+
+    except Exception as e:
+        return f'Error al intentar eliminar el elemento: {e}', 500
